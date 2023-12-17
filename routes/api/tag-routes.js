@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
-    tage_name:req.body.tag_name,
+    tag_name:req.body.tag_name,
   })
   .then((newTag) => {
     // Send the newly created row as a JSON object
@@ -78,6 +78,15 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  Tag.destroy({
+    where: {
+      id:req.params.id,
+    }
+  })
+  .then((deletedTag) => {
+    res.json(deletedTag);
+  })
+  .catch((err) => res.json(err));
 });
 
 module.exports = router;
